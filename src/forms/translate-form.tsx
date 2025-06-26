@@ -116,10 +116,6 @@ export function TranslateForm({ onSubmit, isPending }: TranslateFormProps) {
                   <SelectItem value="swedish">Swedish</SelectItem>
                   <SelectItem value="english">English</SelectItem>
                   <SelectItem value="german">German</SelectItem>
-                  <SelectItem value="klingon">Klingon</SelectItem>
-                  <SelectItem value="a language you make up by yourself">
-                    Let the AI make up a language for you
-                  </SelectItem>
                 </SelectContent>
               </Select>
               <FormMessage />
