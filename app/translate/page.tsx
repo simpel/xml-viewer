@@ -64,7 +64,9 @@ export default function TranslatePage() {
           {!result ? (
             <div className="h-full flex items-center justify-center border-2 border-dashed border-gray-300">
               <p className="text-muted-foreground text-lg">
-                {isPending ? "Translating..." : "Nothing translated yet"}
+                {isPending
+                  ? "Translating (its gonna take some time)..."
+                  : "Nothing translated yet"}
               </p>
             </div>
           ) : (
