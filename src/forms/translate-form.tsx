@@ -3,6 +3,8 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { useEffect } from "react";
+import Cookies from "js-cookie";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -55,8 +57,39 @@ export function TranslateForm({ onSubmit, isPending }: TranslateFormProps) {
     },
   });
 
+  // Load saved values from cookies on component mount
+  useEffect(() => {
+    const savedLanguage = Cookies.get("translate-language");
+    const savedPromptInstructions = Cookies.get(
+      "translate-prompt-instructions"
+    );
+
+    if (savedLanguage) {
+      form.setValue("language", savedLanguage);
+    }
+    if (savedPromptInstructions) {
+      form.setValue("promptInstructions", savedPromptInstructions);
+    }
+  }, [form]);
+
   const watchLanguage = form.watch("language");
   const watchPromptInstructions = form.watch("promptInstructions");
+
+  // Save values to cookies when they change
+  useEffect(() => {
+    if (watchLanguage) {
+      Cookies.set("translate-language", watchLanguage, { expires: 365 }); // Expires in 1 year
+    }
+  }, [watchLanguage]);
+
+  useEffect(() => {
+    if (watchPromptInstructions !== undefined) {
+      Cookies.set("translate-prompt-instructions", watchPromptInstructions, {
+        expires: 365,
+      }); // Expires in 1 year
+    }
+  }, [watchPromptInstructions]);
+
   const systemPrompt = watchLanguage
     ? generateSystemPrompt(watchLanguage, watchPromptInstructions)
     : "";
