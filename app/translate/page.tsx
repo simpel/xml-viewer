@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useTransition, useRef } from "react";
+import { useState, useTransition, useRef, useEffect } from "react";
+import prettyMs from "pretty-ms";
 
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
@@ -38,12 +39,18 @@ export default function TranslatePage() {
 
         const result = await translatePage(formData);
         setResult(result);
-        setEditableValue(result?.translated || "");
+
+        const cleanTranslatedContent = result?.translated || "";
+        setEditableValue(cleanTranslatedContent);
       } catch (err) {
         setError(err instanceof Error ? err.message : "An error occurred");
       }
     });
   };
+
+  useEffect(() => {
+    console.log(result);
+  }, [result]);
 
   return (
     <div>
@@ -75,20 +82,20 @@ export default function TranslatePage() {
                 <div className="flex gap-2 items-center">
                   {result?.screenshots.map((screenshot, index) => (
                     <div className="relative w-full h-10" key={index}>
-                      <Image
+                      <img
                         src={screenshot}
                         alt="Dynamic image"
-                        fill
-                        style={{ objectFit: "cover" }}
+                        className="w-full h-full"
                       />
                     </div>
                   ))}
                 </div>
 
-                <div className="space-y-1 text-sm flex items-center gap-2">
+                <div className="text-sm flex items-center gap-6">
                   <p>
                     {result?.url} was translated to {result?.toLanguage}
                   </p>
+                  <p>Translation took {prettyMs(result?.duration)}</p>
                 </div>
               </div>
 
@@ -104,13 +111,12 @@ export default function TranslatePage() {
                 </ScrollArea>
                 <ScrollArea className="h-full relative">
                   <div ref={translatedScrollRef} className="p-2">
-                    <div className="prose prose-sm max-w-none">
-                      <EditableMarkDown
-                        value={editableValue}
-                        onChange={setEditableValue}
-                        editor={wysimarkEditor}
-                      />
-                    </div>
+                    <EditableMarkDown
+                      value={editableValue}
+                      onChange={setEditableValue}
+                      editor={wysimarkEditor}
+                      placeholder="Translated content will appear here..."
+                    />
                   </div>
                 </ScrollArea>
               </div>

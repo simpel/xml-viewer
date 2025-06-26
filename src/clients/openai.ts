@@ -10,6 +10,7 @@ export { generateSystemPrompt };
 export interface TranslationResult {
   translatedText: string;
   originalText: string;
+  duration: number;
 }
 
 export async function translateText(
@@ -19,8 +20,10 @@ export async function translateText(
 ): Promise<TranslationResult> {
   const systemPrompt = generateSystemPrompt(targetLanguage, promptInstructions);
 
+  const startDate = new Date();
+
   const response = await openai.chat.completions.create({
-    model: "gpt-4o-mini",
+    model: "o4-mini",
     messages: [
       {
         role: "system",
@@ -34,10 +37,15 @@ export async function translateText(
     temperature: 0.3,
   });
 
+  const endDate = new Date();
+  const duration = endDate.getTime() - startDate.getTime();
+  console.log(`Translation took ${duration}ms`);
+
   const translatedText = response.choices[0]?.message?.content || "";
 
   return {
     translatedText,
     originalText: text,
+    duration,
   };
 }

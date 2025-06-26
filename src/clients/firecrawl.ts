@@ -19,8 +19,6 @@ export async function scrapePage(
     ],
   });
 
-  console.log({ response });
-
   if (!response.success) {
     throw new Error(`Failed to scrape: ${response.error}`);
   }

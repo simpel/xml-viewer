@@ -30,6 +30,7 @@ export interface TranslationResult {
   screenshots: string[];
   url: string;
   toLanguage: string;
+  duration: number;
 }
 
 export async function translatePage(
@@ -57,8 +58,6 @@ export async function translatePage(
       throw new Error("No markdown found in the scraped page");
     }
 
-    console.log("scrapedPage:", scrapedPage);
-
     // Step 2: Translate the content
     const translation = await translateText(
       scrapedPage.markdown,
@@ -66,14 +65,13 @@ export async function translatePage(
       promptInstructions
     );
 
-    console.log("translation:", translation);
-
     const result: TranslationResult = {
       original: scrapedPage.markdown || "",
       translated: translation.translatedText,
       screenshots: scrapedPage.actions.screenshots || "",
       url,
       toLanguage: language,
+      duration: translation.duration,
     };
 
     return result;
