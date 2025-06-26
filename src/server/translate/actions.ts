@@ -7,9 +7,18 @@ import { translateText } from "@/clients/openai";
 const translateSchema = z.object({
   promptInstructions: z.string().optional(),
   url: z.string().url("Please enter a valid URL"),
-  language: z.enum(["swedish", "english", "german"], {
-    required_error: "Please select a language",
-  }),
+  language: z.enum(
+    [
+      "swedish",
+      "english",
+      "german",
+      "klingon",
+      "a language you make up by yourself",
+    ],
+    {
+      required_error: "Please select a language",
+    }
+  ),
   mainContentOnly: z.boolean(),
 });
 

@@ -1,7 +1,5 @@
 import FirecrawlApp from "@mendable/firecrawl-js";
 
-console.log(process.env.FIRECRAWL_API_KEY, "jey");
-
 const app = new FirecrawlApp({
   apiKey: process.env.FIRECRAWL_API_KEY!,
 });
@@ -20,6 +18,8 @@ export async function scrapePage(
       },
     ],
   });
+
+  console.log({ response });
 
   if (!response.success) {
     throw new Error(`Failed to scrape: ${response.error}`);

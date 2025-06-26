@@ -33,9 +33,7 @@ import { generateSystemPrompt } from "@/lib/prompts";
 const translateSchema = z.object({
   promptInstructions: z.string().optional(),
   url: z.string().url("Please enter a valid URL"),
-  language: z.enum(["swedish", "english", "german"], {
-    required_error: "Please select a language",
-  }),
+  language: z.string(),
   mainContentOnly: z.boolean(),
 });
 
@@ -50,7 +48,7 @@ export function TranslateForm({ onSubmit, isPending }: TranslateFormProps) {
   const form = useForm<TranslateFormData>({
     resolver: zodResolver(translateSchema),
     defaultValues: {
-      promptInstructions: "Hel och hå",
+      promptInstructions: "",
       url: "",
       language: "english",
       mainContentOnly: true,
@@ -118,6 +116,10 @@ export function TranslateForm({ onSubmit, isPending }: TranslateFormProps) {
                   <SelectItem value="swedish">Swedish</SelectItem>
                   <SelectItem value="english">English</SelectItem>
                   <SelectItem value="german">German</SelectItem>
+                  <SelectItem value="klingon">Klingon</SelectItem>
+                  <SelectItem value="a language you make up by yourself">
+                    Let the AI make up a language for you
+                  </SelectItem>
                 </SelectContent>
               </Select>
               <FormMessage />

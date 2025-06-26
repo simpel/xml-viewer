@@ -81,8 +81,6 @@ export default function Home() {
 
 // Helper to build a hierarchical tree from flat URLs
 function buildTree(sites: SitemapSite[]): Record<string, TreeNodeType> {
-  console.log(sites);
-
   const root: Record<string, TreeNodeType> = {};
   for (const site of sites) {
     const url = new URL(site.loc);

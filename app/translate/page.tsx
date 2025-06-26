@@ -1,8 +1,6 @@
 "use client";
 
 import { useState, useTransition, useRef } from "react";
-import { marked } from "marked";
-import DOMPurify from "dompurify";
 
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
@@ -13,16 +11,14 @@ import { TranslateForm, type TranslateFormData } from "@/forms/translate-form";
 import Image from "next/image";
 import Markdown from "@/components/markdown";
 import EditableMarkDown from "@/components/editable-markdown";
-import { Copy } from "lucide-react";
 import { useEditor } from "@wysimark/react";
-import { Button } from "@/components/ui/button";
 
 export default function TranslatePage() {
   const [isPending, startTransition] = useTransition();
   const [result, setResult] = useState<TranslationResult | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [editableValue, setEditableValue] = useState("");
-  const [copied, setCopied] = useState(false);
+
   const originalScrollRef = useRef<HTMLDivElement>(null);
   const translatedScrollRef = useRef<HTMLDivElement>(null);
   const wysimarkEditor = useEditor({});
