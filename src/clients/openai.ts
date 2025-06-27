@@ -23,7 +23,7 @@ export async function translateText(
   const startDate = new Date();
 
   const response = await openai.chat.completions.create({
-    model: "o4-mini",
+    model: "gpt-4o",
     messages: [
       {
         role: "system",
