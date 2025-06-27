@@ -9,7 +9,6 @@ import {
   type TranslationResult,
 } from "@/server/translate/actions";
 import { TranslateForm, type TranslateFormData } from "@/forms/translate-form";
-import Image from "next/image";
 import Markdown from "@/components/markdown";
 import EditableMarkDown from "@/components/editable-markdown";
 import { useEditor } from "@wysimark/react";
