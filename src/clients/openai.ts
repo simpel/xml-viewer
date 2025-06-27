@@ -34,7 +34,6 @@ export async function translateText(
         content: text,
       },
     ],
-    temperature: 0.3,
   });
 
   const endDate = new Date();
