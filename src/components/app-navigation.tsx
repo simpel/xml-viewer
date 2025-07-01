@@ -39,6 +39,16 @@ export function AppNavigation() {
               Translate
             </Link>
           </Button>
+          <Button
+            asChild
+            variant={pathname === "/process_files" ? "default" : "ghost"}
+            size="sm"
+          >
+            <Link href="/process_files">
+              <FileText className="h-4 w-4 mr-2" />
+              Process Files
+            </Link>
+          </Button>
         </div>
       </div>
     </div>
